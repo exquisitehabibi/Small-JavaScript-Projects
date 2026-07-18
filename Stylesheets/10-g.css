@@ -1,0 +1,11 @@
+button{
+    padding: 10px 15px;
+    cursor:pointer;
+    border-radius: 10px;
+    border: none;
+}
+
+.clckd{
+    color: white;
+    background-color: black;
+}

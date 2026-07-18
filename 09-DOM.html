@@ -1,0 +1,138 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <button>9a</button>
+    <button class="b9">9b</button>
+    <br/>
+    <br/>
+    <button class="heads">Heads</button>
+    <button class="tails">Tails</button>
+    <p id="htp"></p>
+    <br/>
+    <br/>
+    <input placeholder="Name" class="plho">
+    <button class="submit" >Submit</button>
+
+    <p id="sph"></p>
+
+    
+
+
+    <script>
+        const tb = document.querySelector('.plho');
+        document.querySelector('.submit').addEventListener("click",function(){
+            let str = tb.value;
+            document.querySelector('#sph').innerHTML=`${str}`;
+        });
+
+        tb.addEventListener("input",function(){ //Can use keydown but one key behind , so need to add setTimeout
+            let str = tb.value;
+            document.querySelector('#sph').innerHTML=`${str}`;
+        });
+
+        document.querySelector('.heads').addEventListener('click',function(){
+            document.getElementById('htp').innerHTML="Heads";
+        });
+        document.querySelector('.tails').addEventListener('click',function(){
+            document.getElementById('htp').innerHTML="Tails";
+        });
+    </script>
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM Projects</title>
+    <style>
+    .js-subscribe-button{
+    border-radius: 25px;
+    margin: 2px;
+    padding: 10px;
+    border:none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    }
+
+    .js-cost-input{
+      padding: 10px;
+      text-align: center;
+      
+    }
+
+    .CalcButton{
+      background-color: green;
+      color: white;
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+    }
+    
+    </style>
+  </head>
+  <body>
+    <p>YouTube Subscribe Button</p>
+    <button onclick="
+      subscribe();
+    " class="js-subscribe-button">
+      Subscribe
+    </button>
+
+    <p>Amazon Shipping Calculator</p>
+    <input placeholder="Cost of order" class="js-cost-input" onkeydown="
+      handleCostKeydown(event);
+    ">
+    <button class="CalcButton" onclick="
+      calculateTotal();
+    ">Calculate</button>
+    <p class="js-total-cost"></p>
+
+    <script>
+      String(25)
+      console.log('25' - 5);
+      console.log('25' + 5);
+
+      window.document
+      window.console.log('window');
+      window.alert
+
+      function handleCostKeydown(event) {
+        if (event.key === 'Enter') {
+          calculateTotal();
+        }
+      }
+
+      function calculateTotal() {
+        const inputElement = document.querySelector('.js-cost-input');
+        let cost = Number(inputElement.value);
+        cost = cost*100;
+        if (cost < 4000) {
+          cost = cost + 1000;
+        }
+
+        document.querySelector('.js-total-cost')
+          .innerHTML = `$${cost/100}`;
+      }
+
+      function subscribe() {
+        const buttonElement = document.querySelector('.js-subscribe-button');
+
+        if (buttonElement.innerText === 'Subscribe') {
+          buttonElement.innerHTML = 'Subscribed';
+          buttonElement.style.backgroundColor='black';
+        } else {
+          buttonElement.innerHTML = 'Subscribe';
+          buttonElement.style.backgroundColor='red';
+        }
+      }
+      
+    </script>
+  </body>
+</html>

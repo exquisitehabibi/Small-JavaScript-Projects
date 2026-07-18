@@ -1,0 +1,57 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <button onclick="console.log(`Cart Quantity: ${cart}`)">Show Quantity</button>
+    <button onclick="cart++;">Add to Cart</button>
+    <button onclick="cart=cart+2">+2</button>
+    <button onclick="cart=cart+3">+3</button>
+    <button onclick="cart=0; console.log(`Cart was Reset`); console.log(`Cart Quantity: ${cart}`)">Reset Cart</button>
+
+    <script>
+        let cart = 0;
+
+    </script>
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <button onclick="console.log(`Cost of food: $${cart/100}`)">Show Quantity</button>
+    <button onclick="cart=cart+500;">Coffee</button>
+    <button onclick="cart=cart+100">Bagel</button>
+    <button onclick="cart=cart+900">Soup</button>
+    <button onclick="tax = cart*0.1; console.log(`Tax (10%): $${tax/100}`)">Calculate Tax</button>
+    <button onclick="totalCost = (cart+tax)/100; console.log(`Total Cost: $${totalCost}`)">Total Cost</button>
+    <button onclick="cart=0; console.log(`Order was Reset`)">Reset Order</button>
+
+    <script>
+        let cart = 0;
+        let tax = 0;
+        let totalCost
+        let name = "Arun Thakur";
+        console.log(`My name is: ${name}`);
+
+    </script>
+    
+</body>
+</html>
+
+<!-- Create a Calculator using eval(calculation) and string to save the equation -->

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <H1>Coin Flip</H1>
+    <button onclick="f('Heads')">Heads</button>
+    <button onclick="f('Tails')">Tails</button>
+    <button onclick="alert(`Score is:\nWins: ${score.Wins} & Loses: ${score.Loses}`)">Get Score</button>
+    <button onclick="score.Loses=0; score.Wins=0;localStorage.setItem('score', JSON.stringify(score))">Reset Score</button>
+
+    <script>
+        const score = JSON.parse(localStorage.getItem('score')) || {
+            Wins: 0,
+            Loses: 0
+        };
+
+        function f(ch){
+            let result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+
+            if(result === ch){
+                score.Wins++;
+                alert(`You win`);
+            } else{
+                score.Loses++;
+                alert(`You lose`);
+            }
+
+            localStorage.setItem('score', JSON.stringify(score));
+        }
+    </script>
+    
+</body>
+</html>

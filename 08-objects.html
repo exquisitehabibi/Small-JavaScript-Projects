@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <H1>Rock Paper Scissors</H1>
+    <button onclick="rps('Rock')">Rock</button>
+    <button onclick="rps('Paper')">Paper</button>
+    <button onclick="rps('Scissors')">Scissors</button>
+    <button onclick="res()">Reset Button</button>
+
+    <script>
+        const basketball={
+            name: 'Basketball',
+            price : 2095
+        }
+
+        const football={
+            name: 'Football',
+            price : 3000
+        }
+        
+        /* console.log(basketball);
+        basketball.price+=500;
+        console.log(basketball.price);
+        basketball['delivery-time'] = '3 days';
+        console.log(basketball); */
+
+        function comparePrice(p1, p2){
+            if(p1.price > p2.price){
+                console.log(p1.name);
+            } else{
+                console.log(p2.name);
+            }
+        }
+
+        comparePrice(basketball,football);
+
+        function isSamePro(p1,p2){
+            if(p1.name===p2.name && p1['delivery-time'] === p2['delivery-time'] ){
+                return true;
+            } else{
+                return false;
+            }
+        }
+        console.log(isSamePro(basketball,football));
+
+        let name = 'Arun';
+        name = name.toLowerCase();
+        console.log(name);
+        console.log(name.repeat(2));
+        
+    </script>
+    
+</body>
+</html>

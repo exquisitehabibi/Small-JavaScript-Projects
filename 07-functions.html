@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <H1>Rock Paper Scissors</H1>
+    <button onclick="greet()">Greet</button>
+    <button onclick="greet('Arun')">Greet with name</button>
+    <button onclick="convertTemperature(25,'F')">25C in F</button>
+    <button onclick="convertTemperature(86,'C')">86F in C</button>
+
+
+    <script>
+        function greet(name){
+            if(name==undefined){
+                console.log("Hi There!")
+            }
+            else{
+                console.log(`Hello ${name}!`);
+            }           
+        }
+
+        function convertTemperature(temp,unit){
+            if(unit=='C'){
+                let t = (temp -32) *5/9;
+                console.log(`The temperature is: ${t} deg C`);
+            } else if(unit=='F'){
+                let t = (temp*9/5)+32;
+                console.log(`The temperature is: ${t} deg F`);
+            }
+        }
+    </script>
+    
+</body>
+</html>
