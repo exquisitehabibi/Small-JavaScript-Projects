@@ -1,3 +1,5 @@
+alert("Supports localStorage, So that you don't miss your important tasks! ;)");
+
 let arr = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let ATI = document.querySelector('.AT');
