@@ -7,9 +7,9 @@ let wins = 0;
             if(num >= 0 && num <= 1/3){ c='Rock';}
             else if(num > 1/3 && num < 2/3){ c ='Paper';}
             else{c='Scissors';}
-            let user = u+'.png';
-            let comp = c+'.png';
-            document.querySelector('.selection').innerHTML=`You <img src="${user}" alt="${u}" height="50px"> V/S <img src="${comp}" alt="${c}" height="50px">Computer `;
+            let user = u+'.jpg';
+            let comp = c+'.jpg';
+            document.querySelector('.selection').innerHTML=`You <img src="./Assets/${user}" alt="${u}" height="50px"> V/S <img src="./Assets/${comp}" alt="${c}" height="50px">Computer `;
             if((u=='Rock' && c =='Rock') || (u=='Paper' && c =='Paper') ||(u=='Scissors' && c =='Scissors')){
                 document.querySelector('.res').innerHTML="It's a draw!";
                 draws++;
