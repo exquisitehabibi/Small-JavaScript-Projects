@@ -25,7 +25,7 @@ p {
     margin: 10px 0;
 }
 
-.Res-button {
+.Res-button, .playPauseBtn {
     padding: 10px;
     border-radius: 50px;
     border: 2px solid white;
@@ -33,7 +33,7 @@ p {
     color: white;
 }
 
-.Res-button:hover{
+.Res-button:hover, .playPauseBtn:hover{
     background-color: green;
     
 }

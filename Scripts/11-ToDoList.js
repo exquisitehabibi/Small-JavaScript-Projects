@@ -1,5 +1,3 @@
-alert("Supports localStorage, So that you don't miss your important tasks! ;)");
-
 let arr = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let ATI = document.querySelector('.AT');
@@ -11,7 +9,9 @@ function func(){
         alert('Both Fields Mandatory!');
         return;
     }
-    arr.push({work:ATI.value, date:DMYI.value});
+    const dateParts = DMYI.value.split("-");
+    const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+    arr.push({work:ATI.value, date:formattedDate});
     ATI.value="";
     DMYI.value="";
     saveData();
