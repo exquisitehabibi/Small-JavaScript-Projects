@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdvanceFunctions</title>
+    <style>
+
+        .invis{
+            display: none;
+        }
+        #clk:hover{
+            background-color: black;
+            color: white;
+            border : 1px solid black;
+        }
+        img{
+            width: 500px;
+            max-width: 100%;
+            height: auto;
+        }
+        #AF{
+            width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <p>Right click on webpage ==> Inspect ==> Open Console</p>
+    <p>Click on anywhere on the body and start pressing keys!!!</p>
+    <hr>
+    <h2>Experiment with in-built array function in js</h2>
+    <p class="inp"><input class="inpArr" placeholder="Add array elements"> <button onclick="createArray()">Add</button> </p>
+    <p class="note">(Note: Add a single space between them)</p>
+    <p class="cdn invis">Choose one: 
+        <button onclick="cdnBP('filter')">filter()</button> 
+        <button onclick="cdnBP('map')">map()</button>
+    </p>
+    <p class="tcdn invis"><input class="inpC" placeholder="Type your condition here!"> <button class="AddC" onclick="res()">Add Condition</button></p>
+    <p class="arrRes"></p>
+    <hr>
+    <h2>Event Listeners</h2>
+    <p><img src="./Assets/eventListeners.png"></p>
+    <p>Click and Hover on "Click" button to check for eventListeners</p>
+    <button id="clk">Click</button>
+    <hr>
+    <h2>Arrow Functions</h2>
+    <p><img id ="AF" src="./Assets/arrowFunc.png"></p>
+    
+    <script>
+
+        let inp = document.querySelector('.inp');
+        let note = document.querySelector('.note');
+        let cdn = document.querySelector('.cdn');
+        let tcdn = document.querySelector('.tcdn');
+
+        const arr = [];
+
+        function err(param){
+            alert(param);
+        }
+
+        function createArray(){
+
+            let s = document.querySelector('.inpArr').value;
+            let str = "";
+            document.querySelector('.inpArr').value="";
+
+            for(let i = 0; i < s.length; i++){
+                if(s[i]== '-' || s[i]>='0' && s[i]<='9'){
+                    str+=s[i];
+                }
+                else if(s[i]==" " && str != ""){
+                    arr.push(Number(str));
+                        str="";
+                    }
+                else{
+                    err("Invalid Argument \nAdd array elements again!");
+                    arr.length=0;
+                    document.querySelector('.inpArr').value="";
+                    return;
+                }
+            }
+            if(str != "") arr.push(Number(str));
+
+            inp.classList.add('invis');
+            note.innerHTML = "Elements added successfully!";
+            cdn.classList.remove('invis');
+        }
+
+        let condition;
+        function cdnBP(c){
+            condition = c;
+            note.innerHTML = `${c}() selected!<br>
+            (Note: Array elements are referred as "value" when passed as argument <br>
+            so the condition to be given should be for example as: "value>=0")`;
+            cdn.classList.add('invis');
+            tcdn.classList.remove('invis');
+        }
+
+        let cdnStr;
+        function res(){
+            cdnStr = document.querySelector('.inpC').value;
+            let result = [];
+
+            try{
+                const fn = new Function("value",`return ${cdnStr}`);
+                if(condition=="filter"){
+                        result = arr.filter(value=>fn(value));
+                }
+                else{
+                    result= arr.map(value=> fn(value));
+                }
+            }
+            catch{
+                alert("Invalid condition! \nType again!");
+                return;
+            }
+            disp(result);
+        }
+
+        function disp(result){
+            let d = "";
+            d = `Final array after applying the condition "${cdnStr}" using ${condition}()
+            on the array[ `;
+            if(arr.length==0){
+                d+=']';
+            }
+            for(let i = 0; i< arr.length; i++){
+                if(i==arr.length-1){
+                    d+= `${arr[i]} ] is: [ `
+                }else{
+                    d+=`${arr[i]}, `
+                } 
+            }
+
+            if(result.length==0){
+                d+=']'
+            }
+            for(let i = 0; i< result.length; i++){
+                if(i==result.length-1){
+                    d+= `${result[i]} ]`
+                }else{
+                    d+=`${result[i]}, `
+                } 
+            }
+
+            d+= "<button style='margin-left: 10px;' onclick = 'reset()'>Reset</button>";
+            document.querySelector('.arrRes').innerHTML = d;
+        }
+
+        function reset(){
+            arr.length=0;
+            condition="";
+            cdnStr="";
+            inp.classList.remove('invis');
+            note.innerHTML = "(Note: Add a single space between them)";
+            cdn.classList.add('invis');
+            tcdn.classList.add('invis');
+            document.querySelector('.arrRes').innerHTML="";
+        }
+
+        //filter()
+        /*  1. Creates a new array[]
+            2. If inner function return true => put value in array
+            3. If returns false => doesn't put value in array
+        */
+
+
+
+
+        //addEventListener();
+        let btn = document.querySelector('#clk');
+        btn.addEventListener("click", ()=>{
+            console.log('Click');
+        });
+
+        btn.addEventListener("mouseenter", ()=>{
+            
+            console.log('Hoveringggg');
+            
+        })
+
+        //Keydown on Body
+        document.body.addEventListener('keydown', (k)=>{
+            console.log(k.key);
+        })
+
+        //removeEventListener();
+        
+        /*Wont work like this --- need same function saved in var
+        btn.removeEventListener('click',()=>{
+            console.log('Click');
+        }); */
+
+
+
+        //Arrow Functions
+        //ArrowFunctions provide better readability overall and specifically when passing func as value 
+        console.log("Arrow Functions demonstration in progress....");
+        const f1 = function(c){
+            c();
+        }
+        const aF1 = ()=>{
+            console.log("Passing func as value");
+        }
+        f1(aF1);
+
+        //Shortcut 1. When only one parameter
+        const aF2 = (param) =>{
+            console.log(param);
+        }
+        const aF2s = param =>{          //No need of round brackets for single parameter
+            console.log(param);
+        }
+        aF2s("One Parameter");
+
+        //Shortcut 2. When func has only one line
+        const aF3 = (param) => {
+            console.log(param);
+        }
+        const aF3s = param => console.log(param);
+        aF3s("One Line");
+
+        console.log("Arrow Functions demonstration complete!");
+        
+    </script>
+</body>
+</html>
