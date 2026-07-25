@@ -91,15 +91,40 @@ document.querySelector('.js-products-grid').innerHTML = productHTML;
 // document.querySelectorAll('.js-add-to-cart-button').addEventListener('click', addToCart(ind));
 
 ///////Cart
-const cart = [];
+const cart = JSON.parse(localStorage.getItem('amazonShoppingCart')) || [];
+let cartSize = 0;
+cartSize = cart.reduce((total,prod)=> total+= prod.quantity, 0);
+
+document.querySelector('.js-cart-quantity').innerHTML=`${cartSize}`;
 
 function addToCart(ind){
-    let n = document.getElementById(`ID${ind}`).value;
-    let item = {
+    let n = Number(document.getElementById(`ID${ind}`).value);
+
+    const existItem = cart.find((p)=>p.name === products[ind].name);
+
+    if(existItem){
+      if(existItem.quantity + n > 10){
+        alert(`Only 10 of these can be ordered per user!`);
+        let added = 10 - existItem.quantity;
+        existItem.quantity = 10;
+        cartSize += added;
+      }
+      else{
+        existItem.quantity+=n;
+        cartSize+=n;
+      }
+    }
+    else{
+      let item = {
+        image : products[ind].image,
         name: products[ind].name,
         price: products[ind].price,
-        quantity: n
-    }
+        quantity: n  
+      }
     cart.push(item);
-    console.log(cart);
+    cartSize += n;
+    }
+
+    localStorage.setItem('amazonShoppingCart',JSON.stringify(cart));
+    document.querySelector('.js-cart-quantity').innerHTML=`${cartSize}`;
 }
