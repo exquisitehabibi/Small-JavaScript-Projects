@@ -1,14 +1,18 @@
 const cart = JSON.parse(localStorage.getItem('amazonShoppingCart')) || [];
+
 let cartSize = 0;
-cartSize = cart.reduce((total,prod)=> total+= prod.quantity, 0);
-// console.log(cart);
+cartSize = cart.reduce((total,prod)=> total = prod.quantity, 0);
 
 let checkoutHTML = "";
-cart.forEach((prod,index) => {
+
+function disp(){
+  checkoutHTML = "";
+
+  cart.forEach((prod,index) => {
     checkoutHTML+=`
         <div class="cart-item-container">
-            <div class="delivery-date">
-              Delivery date: Tuesday, June 21
+            <div class="delivery-date js-delivery-date-${index}">
+              Delivery date: ${getDeliveryDate(6)}
             </div>
 
             <div class="cart-item-details-grid">
@@ -22,11 +26,11 @@ cart.forEach((prod,index) => {
                 <div class="product-price">
                   $${(prod.price/100).toFixed(2)}
                 </div>
-                <div class="product-quantity">
+                <div class="product-quantity js-qty-container-${index}">
                   <span>
                     Quantity: <span class="quantity-label">${prod.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+                  <span class="update-quantity-link link-primary js-update-quantity-link-${index}" onclick="updateQty(${index})">
                     Update
                   </span>
                   <span class="delete-quantity-link link-primary" onclick="del(${index})">
@@ -42,10 +46,11 @@ cart.forEach((prod,index) => {
                 <div class="delivery-option">
                   <input type="radio" checked
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    value = "0"
+                    name="delivery-option-${index}">
                   <div>
                     <div class="delivery-option-date">
-                      Tuesday, June 21
+                      ${getDeliveryDate(6)}
                     </div>
                     <div class="delivery-option-price">
                       FREE Shipping
@@ -55,10 +60,11 @@ cart.forEach((prod,index) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    value = "499"
+                    name="delivery-option-${index}">
                   <div>
                     <div class="delivery-option-date">
-                      Wednesday, June 15
+                      ${getDeliveryDate(4)}
                     </div>
                     <div class="delivery-option-price">
                       $4.99 - Shipping
@@ -68,10 +74,11 @@ cart.forEach((prod,index) => {
                 <div class="delivery-option">
                   <input type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1">
+                    value = "999"
+                    name="delivery-option-${index}">
                   <div>
                     <div class="delivery-option-date">
-                      Monday, June 13
+                      ${getDeliveryDate(2)}
                     </div>
                     <div class="delivery-option-price">
                       $9.99 - Shipping
@@ -82,11 +89,119 @@ cart.forEach((prod,index) => {
             </div>
           </div>
     `
-});
+  });
+  document.querySelector('.js-order-summary').innerHTML = checkoutHTML;
+  
+  cart.forEach((prod,index) => {
+  const radios = document.querySelectorAll(`input[name="delivery-option-${index}"]`);
 
-document.querySelector('.js-order-summary').innerHTML = checkoutHTML;
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        updateDeliveryDate(index, Number(radio.value));
+        calcTotalCost();
+      });
+    });
+  });
+}
+disp();
 
+//calc costs
+function calcTotalCost(){
+  let totalCartCost = 0;
+  let itemsCost = 0;
+  let itemsShipping = 0;
 
+  cart.forEach((prod,index)=>{
+    itemsCost += prod.price * prod.quantity;
+    itemsShipping += Number(getSelectedDelivery(index));
+  })
+
+  document.querySelector('.js-itemscost-summary').innerHTML = `$${(itemsCost/100).toFixed(2)}`;
+  document.querySelector('.js-itemsshipping-summary').innerHTML = `$${(itemsShipping/100).toFixed(2)}`;
+  document.querySelector('.js-totalbeforetax').innerHTML = `$${((itemsCost + itemsShipping)/100).toFixed(2)}`;
+  document.querySelector('.js-total-tax').innerHTML = `$${((itemsCost + itemsShipping)/1000).toFixed(2)}`
+
+  totalCartCost = itemsCost + itemsShipping + (itemsCost + itemsShipping)/10;
+  document.querySelector('.js-payment-summary-money').innerHTML = `$${((totalCartCost)/100).toFixed(2)}`;
+}
+calcTotalCost();
+
+//deleting items
 function del(ind){
     cart.splice(ind,1);
+    disp();
+    localStorage.setItem('amazonShoppingCart',JSON.stringify(cart));
 }
+
+function getSelectedDelivery(index){
+  const selected = document.querySelector(`input[name="delivery-option-${index}"]:checked`);
+  return selected.value;
+}
+
+
+//updating qty of items 
+function updateQty(ind){
+  const container = document.querySelector(`.js-qty-container-${ind}`);
+
+  container.innerHTML = `
+    <span>
+      Quantity:
+      <input id="updatingQty-${ind}" type="number" min="1" max="10" value="${cart[ind].quantity}">
+    </span>
+    <button onclick="saveQty(${ind})">Save</button>
+    <button onclick="disp()">Cancel</button>
+  `;
+
+  document.getElementById(`updatingQty-${ind}`).focus();
+}
+
+function saveQty(ind){
+  const input = document.getElementById(`updatingQty-${ind}`);
+  const newQty = Number(input.value);
+
+  if (isNaN(newQty) || newQty < 1 || newQty > 10){
+    alert("Invalid Quantity");
+    return;
+  }
+
+  cart[ind].quantity = newQty;
+
+  localStorage.setItem('amazonShoppingCart', JSON.stringify(cart));
+
+  disp();
+  calcTotalCost();
+}
+
+
+// delivery dates
+function getDeliveryDate(daysToAdd){
+  const date = new Date();
+  let added = 0;
+
+  while (added < daysToAdd) {
+    date.setDate(date.getDate() + 1);
+    const day = date.getDay();
+
+    if (day !== 0 && day !== 6) { // skip Sunday(0) & Saturday(6)
+      added++;
+    }
+  }
+
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+//Date at top update
+function updateDeliveryDate(index, value){
+  let days = 6;
+
+  if (value === 499) days = 4;
+  if (value === 999) days = 2;
+
+  const dateEl = document.querySelector(`.js-delivery-date-${index}`);
+  dateEl.innerHTML = `Delivery date: ${getDeliveryDate(days)}`;
+}
+
