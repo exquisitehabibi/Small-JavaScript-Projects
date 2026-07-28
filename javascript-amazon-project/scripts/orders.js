@@ -11,9 +11,9 @@ function dispOrders(){
     document.querySelector('.js-main').innerHTML = `
       <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:200px; gap:10px;">
         <p>NO orders placed yet!</p>
-        <a href="../amazon.html">Go back to home page</a>
+        <a href="amazon.html">Go back to home page</a>
         <p>OR</p>
-        <a href="../checkout.html">Go back to checkout page</a>
+        <a href="checkout.html">Go back to checkout page</a>
       </div>
     `
     return;

@@ -12,7 +12,7 @@ function disp(){
     document.querySelector('.js-main').innerHTML = `
       <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:200px; gap:10px;">
         <p>There are no items in Cart</p>
-        <a href="../amazon.html">Go back to home page</a>
+        <a href="amazon.html">Go back to home page</a>
       </div>
     `
     return;
