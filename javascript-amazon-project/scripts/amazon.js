@@ -1,3 +1,4 @@
+
 const products = [
   {
     image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
@@ -90,6 +91,8 @@ const products = [
     price: 3390
   }
 ];
+
+localStorage.setItem('amazonProducts',JSON.stringify(products));
 
 let productHTML = "";
 

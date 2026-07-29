@@ -1,8 +1,12 @@
 const cart = JSON.parse(localStorage.getItem('amazonShoppingCart')) || [];
 const placedOrders = JSON.parse(localStorage.getItem('placedAmazonOrders')) || [];
 
+const products = JSON.parse(localStorage.getItem('amazonProducts')) || [];
+
 let cartSize = cart.reduce((total,prod)=> total+  prod.quantity, 0);
 document.querySelector('.js-cart-quantity').innerHTML=`${cartSize}`;
+
+
 // placedOrders.length = 0;
 //   localStorage.setItem('placedAmazonOrders', JSON.stringify(placedOrders));
 
@@ -37,7 +41,7 @@ function dispOrders(){
                     <div class="product-quantity">
                         Quantity: ${item.quantity}
                     </div>
-                    <button class="buy-again-button button-primary">
+                    <button class="buy-again-button button-primary" onclick = "buyItAgain('${item.name}',${item.quantity})">
                         <img class="buy-again-icon" src="images/icons/buy-again.png">
                         <span class="buy-again-message">Buy it again</span>
                     </button>
@@ -95,6 +99,37 @@ function buildTrackPage(index, i){
   window.location.href = "tracking.html";
 }
 
+function buyItAgain(prod,qty){
 
+    let n = qty;
 
+    const ind = products.findIndex((i)=> i.name === prod)
+    const existItem = cart.find((p)=>p.name === products[ind].name);
 
+    if(existItem){
+      if(existItem.quantity + n > 10){
+        alert(`Only 10 of these can be ordered per user!`);
+        let added = 10 - existItem.quantity;
+        existItem.quantity = 10;
+        cartSize += added;
+      }
+      else{
+        existItem.quantity+=n;
+        cartSize+=n;
+      }
+    }
+    else{
+      let item = {
+        image : products[ind].image,
+        name: products[ind].name,
+        price: products[ind].price,
+        quantity: n  
+      }
+    cart.push(item);
+    cartSize += n;
+    }
+
+    localStorage.setItem('amazonShoppingCart',JSON.stringify(cart));
+    document.querySelector('.js-cart-quantity').innerHTML=`${cartSize}`;
+    alert('Added to Cart!');
+}
