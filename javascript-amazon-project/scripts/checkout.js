@@ -282,7 +282,7 @@ function placeOrder(){
   document.querySelector('.js-main').innerHTML = `
       <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:200px; gap:10px;">
         <p>All Items were ordered successfully!</p>
-        <a href="../amazon.html">Go back to home page</a>
+        <a href="orders.html">Go to Orders' Page</a>
       </div>
     `
 }

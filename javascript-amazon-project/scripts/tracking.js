@@ -31,11 +31,13 @@ function buildTrackPage(index, i){
         <img class="product-image" src="${prod.image}">`;
 
     const today = stripTime(new Date());
-    const delivery = stripTime(new Date(prod.deliveryDate));
+    const delivery = stripTime(new Date(prod.rawDeliveryDate));
     const orderedDate = stripTime(new Date(placedOrders[index].dateOrdered));
     let progressWidth = 0;
 
-    if (orderedDate.getTime() === today.getTime()) {
+    console.log(today,orderedDate,delivery)
+
+    if (orderedDate === today) {
       progressWidth = 0;
         trackingHTML += `
             <div class="progress-labels-container">
@@ -44,11 +46,12 @@ function buildTrackPage(index, i){
             <div class="progress-label">Delivered</div>
             </div>
             <div class="progress-bar-container">
-            <div class="progress-bar" style="width:${progressWidth}%"></div>
+            <div class="progress-bar" style="width:0%"></div>
             </div>
         `;
+        console.log("mid");
     } 
-    else if (orderedDate.getTime() < today.getTime() && today.getTime() < delivery.getTime()) {
+    else if (orderedDate < today && today < delivery) {
       progressWidth = 50;
         trackingHTML += `
             <div class="progress-labels-container">
@@ -57,9 +60,10 @@ function buildTrackPage(index, i){
             <div class="progress-label">Delivered</div>
             </div>
             <div class="progress-bar-container">
-            <div class="progress-bar" style="width:${progressWidth}%"></div>
+            <div class="progress-bar" style="width:50%"></div>
             </div>
         `;
+        console.log("mid");
     }
     else {
       progressWidth = 100;
@@ -70,9 +74,10 @@ function buildTrackPage(index, i){
             <div class="progress-label current-status">Delivered</div>
             </div>
             <div class="progress-bar-container">
-            <div class="progress-bar" style="width:${progressWidth}%"></div>
+            <div class="progress-bar" style="width:100%"></div>
             </div>
         `;
+        console.log("end");
     }
 }
 
