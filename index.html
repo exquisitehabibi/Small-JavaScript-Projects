@@ -4,29 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root{
+            --bg:#0D1B14;
+            --bg-panel:#122619;
+            --copper:#C89B3C;
+            --copper-bright:#E0B85C;
+            --signal:#5EEAD4;
+            --text:#EDE7D9;
+            --text-muted:#8FA396;
+            --trace:#25402F;
+        }
+        *{box-sizing:border-box;}
+        body{
+            margin:0;
+            min-height:100vh;
+            background:var(--bg);
+            color:var(--text);
+            font-family:'Inter', sans-serif;
+            padding:60px 20px;
+        }
+        .wrap{
+            max-width:640px;
+            margin:0 auto;
+        }
+        h1{
+            font-family:'JetBrains Mono', monospace;
+            font-size:clamp(1.4rem, 1.1rem + 1.5vw, 1.9rem);
+            font-weight:700;
+            margin:0 0 8px;
+        }
+        .sub{
+            color:var(--text-muted);
+            font-size:0.95rem;
+            margin:0 0 36px;
+        }
+        .list{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
         button{
-            padding: 10px;
-            border-radius: 50px;
-            cursor: pointer;
-            border: 1px solid black;
-            margin-bottom: 10px; 
+            display:block;
+            width:100%;
+            text-align:left;
+            padding:16px 20px;
+            border-radius:10px;
+            cursor:pointer;
+            border:1px solid var(--trace);
+            background:var(--bg-panel);
+            color:var(--text);
+            font-family:'Inter', sans-serif;
+            font-size:0.98rem;
+            transition:border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
         }
         button:hover{
-            background-color: orange;
-            
+            border-color:var(--signal);
+            background:#16301F;
+            transform:translateX(4px);
+        }
+        button:active{
+            transform:translateX(2px) scale(0.99);
+        }
+        button:focus-visible{
+            outline:2px solid var(--signal);
+            outline-offset:2px;
+        }
+        button::after{
+            content:"→";
+            float:right;
+            color:var(--copper);
         }
     </style>
 </head>
 <body>
-    <H1>Some of the Interactive Projects are:</H1>
-    <button onclick="window.location.href='10-h.html'">Amazon Shipping Calculator</button>
-    <button onclick="window.location.href='10-i.html'">Calculator</button>
-    <button onclick="window.location.href='10-RPS.html'">Rock Paper Scissors Game</button>
-    <button onclick="window.location.href='11-ToDoList.html'">To Do List</button>
-    <button onclick="window.location.href='12-AdvFunc-RPS.html'">Rock Paper Scissors Game (with AutoPlay feature)</button>
-    <button onclick="window.location.href='12-AdvFunc.html'">JavaScript Adv Functions Demonstration</button>
-    <button onclick="window.location.href='javascript-amazon-project/amazon.html'">Amazon Project</button>
+    <div class="wrap">
+        <h1>Interactive Projects</h1>
+        <p class="sub">A few small JavaScript builds — click any to open.</p>
 
+        <div class="list">
+            <button onclick="window.location.href='10-h.html'">Amazon Shipping Calculator</button>
+            <button onclick="window.location.href='10-i.html'">Calculator</button>
+            <button onclick="window.location.href='10-RPS.html'">Rock Paper Scissors Game</button>
+            <button onclick="window.location.href='11-ToDoList.html'">To Do List</button>
+            <button onclick="window.location.href='12-AdvFunc-RPS.html'">Rock Paper Scissors Game (with AutoPlay feature)</button>
+            <button onclick="window.location.href='12-AdvFunc.html'">JavaScript Adv Functions Demonstration</button>
+            <button onclick="window.location.href='javascript-amazon-project/amazon.html'">Amazon Project</button>
+        </div>
+    </div>
 </body>
 </html>
